@@ -1,0 +1,38 @@
+{
+  "type": "one-pager",
+  "lang": "cn",
+  "brief": {
+    "audience": "FDE 岗位招聘方与面试官",
+    "job": "在 30 秒内证明从业务需求到 Demo、Eval 与验收的完整交付能力",
+    "template": "one-pager",
+    "formats": ["html", "pdf"],
+    "page_target": 1,
+    "narrative": "结果先行，再展示关键判断、失败修复与交付边界",
+    "required_facts": ["5 份资料", "39 个片段", "12 条 Eval", "10/12 到 12/12"],
+    "required_assets": [],
+    "acceptance_checks": ["严格一页", "无模板占位符", "关键结果可核对", "边界声明清晰"],
+    "preserve": [],
+    "explicit_deviations": []
+  },
+  "content": {
+    "title": "把知识问答做成可验收的业务交付",
+    "subtitle": "美妆零售客服与导购助手｜需求、Demo、Eval 与人工边界",
+    "metrics": [
+      {"value": "5", "label": "份知识资料"},
+      {"value": "39", "label": "个检索片段"},
+      {"value": "12", "label": "条 Eval 用例"},
+      {"value": "10→12", "label": "首轮到复测通过数"}
+    ],
+    "argument": [
+      "我独立完成从需求澄清、范围与 SOW，到本地 Demo、Eval、失败修复和验收材料的完整闭环。核心不是让系统回答更多，而是让有依据的问题可追溯，让高风险、实时数据和资料不足的问题及时停止并交给人工。"
+    ],
+    "evidence": [
+      "稳定知识：返回内部参考与来源位置。",
+      "“渗漏”未召回“漏液”：补充同义词与客诉场景约束。",
+      "功效问答只返回可说内容：让正向依据与禁止边界共同召回。",
+      "修复后全量回归，12/12 通过技术检查与人工原文核对。"
+    ],
+    "next_step": "完整材料：github.com/RaoMM/fde-delivery-portfolio",
+    "contact": "GitHub｜@RaoMM"
+  }
+}

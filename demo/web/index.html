@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="美妆客服与导购知识检索及风险分流助手演示" />
+    <link rel="icon" href="data:," />
+    <title>澄研 · 客服知识助手</title>
+    <link rel="stylesheet" href="styles.css?v=20260801-4" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">跳到主要内容</a>
+    <header class="masthead">
+      <div class="wordmark" aria-label="澄研美妆客服与导购知识助手">
+        <span class="wordmark-mark" aria-hidden="true">C</span>
+        <span>澄研</span><small>客服与导购知识助手</small>
+      </div>
+      <p class="environment"><span class="environment-dot"></span>会话协作</p>
+    </header>
+
+    <main id="main-content" class="workspace workspace-app">
+      <section class="collaboration-shell" aria-label="客服协作台">
+        <aside class="queue-pane" aria-labelledby="queue-title">
+          <div class="section-head queue-head">
+            <div><p class="step">队列</p><h2 id="queue-title">待处理问题</h2></div>
+            <span class="queue-count" id="queue-count">4</span>
+          </div>
+          <div id="conversation-list" class="conversation-list" role="list"></div>
+          <button id="manual-entry-toggle" class="manual-entry-toggle" type="button" aria-expanded="false" aria-controls="manual-entry-form">＋ 员工自由检索</button>
+          <form id="manual-entry-form" class="manual-entry-form" hidden>
+            <label for="manual-question">直接向知识库提问</label>
+            <textarea id="manual-question" rows="3" placeholder="例如：标签和页面信息不一致时，第一步怎么做？"></textarea>
+            <p id="manual-entry-error" class="form-error" aria-live="polite"></p>
+            <button type="submit">开始检索</button>
+          </form>
+        </aside>
+
+        <section class="conversation-pane" aria-labelledby="conversation-title">
+          <div class="section-head conversation-head">
+            <div><p id="conversation-type" class="step">顾客会话</p><h2 id="conversation-title">正在载入会话</h2></div>
+            <span id="conversation-status" class="source-status">处理中</span>
+          </div>
+          <div id="conversation-detail" class="conversation-detail empty-conversation">
+            <span class="empty-index">/</span>
+            <p>正在载入待处理会话。</p>
+          </div>
+        </section>
+
+        <section class="result-pane assistant-pane" aria-labelledby="result-title" aria-live="polite">
+          <div class="section-head result-head">
+            <div><p id="outcome-type" class="step">回复处理</p><h2 id="result-title">建议回复</h2></div>
+            <span id="source-status" class="source-status">正在处理</span>
+          </div>
+          <div id="empty-state" class="empty-state">
+            <span class="empty-index">✦</span>
+            <p>正在生成回复建议</p>
+          </div>
+          <div id="result-content" class="result-content" hidden>
+            <article id="risk-panel" class="result-stage"></article>
+            <article id="evidence-panel" class="result-stage"></article>
+            <article id="decision-panel" class="result-stage"></article>
+          </div>
+        </section>
+      </section>
+
+      <section class="source-ledger" aria-labelledby="ledger-title">
+        <div>
+          <p class="eyebrow">内部知识版本</p>
+          <h2 id="ledger-title">本次核对所依据的资料</h2>
+        </div>
+        <div id="source-ledger-list" class="source-ledger-list"></div>
+      </section>
+    </main>
+
+    <footer>
+      <span>澄研 · 美妆客服与导购知识助手</span>
+    </footer>
+    <script src="app.js"></script>
+  </body>
+</html>

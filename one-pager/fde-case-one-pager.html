@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<!-- ==================================================================
+     ONE-PAGER TEMPLATE · parchment design system
+     单页 A4 方案/报告/执行摘要
+     改完跑：python3 -c "from weasyprint import HTML; HTML('one-pager.html').write_pdf('out.pdf')"
+     目标：页数必须 == 1
+     ================================================================== -->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>把知识问答做成可验收的业务交付</title>
+<meta name="author" content="RaoMM">
+<meta name="description" content="美妆零售知识问答助手 FDE 交付案例">
+<meta name="keywords" content="FDE, AI解决方案, Demo, Eval, 知识库">
+<meta name="generator" content="Kami">
+<style>
+  /* Regular weight */
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("../fonts/TsangerJinKai02-W04.ttf") format("truetype"),
+       url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  /* Bold weight - W05 for all bold variants */
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("../fonts/TsangerJinKai02-W05.ttf") format("truetype"),
+       url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  @page {
+    size: A4;
+    margin: 15mm 18mm 15mm 18mm;
+    background: #f5f4ed;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment: #f5f4ed;
+    --ivory:     #faf9f5;
+    --near-black:#141413;
+    --dark-warm: #3d3d3a;
+    --olive:     #504e49;
+    --stone:     #6b6a64;
+    --brand:     #1B365D;
+    --border:    #e8e6dc;
+    --border-soft:#e5e3d8;
+    --tag-bg:    #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+  }
+
+  html, body { background: var(--parchment); }
+
+  @media screen {
+    body { max-width: 210mm; margin: 0 auto; padding: 15mm 18mm; }
+  }
+
+  body {
+    color: #141413;
+    font-family: var(--serif);
+    font-size: 10pt;
+    line-height: 1.45;
+    letter-spacing: 0.3pt;
+  }
+
+  .serif {
+    font-family: var(--serif);
+  }
+
+  /* ========== HEADER ========== */
+  .header {
+    margin-bottom: 16pt;
+    padding-bottom: 12pt;
+    border-bottom: 0.5pt solid var(--border);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20pt;
+  }
+  .title-block {
+    flex: 1;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 7pt;
+    font-size: 9pt;
+    color: #1B365D;
+    letter-spacing: 1.5pt;
+    text-transform: uppercase;
+    margin-bottom: 7pt;
+    font-weight: 500;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 8pt;
+    height: 1.5pt;
+    border-radius: 0.75pt;
+    background: var(--brand);
+    flex-shrink: 0;
+  }
+  /* CN locale tuning: TsangerJinKai glyphs are wider per character, so H1 sits
+     slightly smaller (24pt vs EN 26pt) with looser leading (1.15 vs EN 1.12)
+     to keep optical density aligned across the two locales. */
+  h1 {
+    font-family: var(--serif);
+    font-size: 24pt;
+    font-weight: 500;
+    color: #141413;
+    line-height: 1.15;
+    margin-bottom: 5pt;
+  }
+  .subtitle {
+    font-size: 11pt;
+    color: #504e49;
+    line-height: 1.4;
+  }
+  .meta {
+    font-size: 9pt;
+    color: #6b6a64;
+    text-align: right;
+    line-height: 1.45;
+    white-space: nowrap;
+  }
+  /* 品牌 logo 槽(可选,来自 brand profile;默认无 logo,样式仅在取消注释后生效)。 */
+  .brand-logo {
+    height: 44px;
+    width: auto;
+    max-width: 160px;
+    object-fit: contain;
+    align-self: flex-start;
+  }
+
+  /* ========== METRICS ========== */
+  /* 横向 baseline 布局 - -  和 resume.html 一致的 kami native 姿态。
+     背景透明、无边框，用 typography 本身承担层次，不加容器。 */
+  .metrics {
+    display: flex;
+    gap: 14pt;
+    margin-bottom: 18pt;
+    padding: 4pt 0 6pt 0;
+    border-bottom: 0.3pt dotted var(--border);
+  }
+  .metric {
+    flex: 1;
+    background: transparent;
+    padding: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 4pt;
+    break-inside: avoid;
+  }
+  .metric-value {
+    font-family: var(--serif);
+    font-size: 20pt;
+    font-weight: 500;
+    color: #1B365D;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    letter-spacing: -0.2pt;
+  }
+  .metric-label {
+    font-size: 9pt;
+    color: #504e49;
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+
+  /* ========== SECTIONS ========== */
+  /* PRODUCT SHOT (optional) - one real screenshot as the page's visual anchor.
+     Uncomment the <figure> in the body, point src at a local image, and tune
+     .frame height to fill the page. object-fit trims dead margin, not the window. */
+  .product-shot { margin-bottom: 16pt; break-inside: avoid; }
+  .product-shot .frame {
+    height: 110mm;
+    overflow: hidden;
+    border-radius: 5pt;
+    box-shadow: 0 1.5pt 6pt rgba(20, 20, 19, 0.16);
+  }
+  .product-shot .frame img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center; display: block;
+  }
+  .product-shot figcaption {
+    margin-top: 7pt; font-size: 8.5pt;
+    color: #6b6a64; line-height: 1.45; text-align: center;
+  }
+  .product-shot figcaption .hl { color: #1B365D; font-weight: 500; }
+
+  section { margin-bottom: 18pt; break-inside: avoid; }
+  section:last-of-type { margin-bottom: 0; }
+
+  h2 {
+    font-family: var(--serif);
+    font-size: 16pt;
+    font-weight: 500;
+    color: #141413;
+    margin-bottom: 6pt;
+  }
+  h2 .sub {
+    font-size: 9pt;
+    color: #6b6a64;
+    font-weight: 400;
+    margin-left: 6pt;
+  }
+
+  p { margin-bottom: 6pt; line-height: 1.45; }
+  p:last-child { margin-bottom: 0; }
+
+  .lead {
+    font-size: 12pt;
+    line-height: 1.5;
+    color: #3d3d3a;
+    margin-bottom: 14pt;
+  }
+
+  .hl { color: #1B365D; font-weight: 500; }
+
+  /* ========== 2-column grid ========== */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18pt;
+  }
+
+  /* ========== 短横线 list（代替默认 bullet） ========== */
+  ul.dash {
+    margin: 0;
+    padding-left: 16pt;
+  }
+  ul.dash li {
+    margin-bottom: 5pt;
+    line-height: 1.45;
+  }
+  ul.dash li:last-child { margin-bottom: 0; }
+  ul.dash li::marker { color: #1B365D; }
+
+  /* ========== Timeline (横向进度点) ========== */
+  .timeline {
+    display: flex;
+    gap: 12pt;
+    margin-top: 6pt;
+  }
+  .tl-step {
+    flex: 1;
+    break-inside: avoid;
+  }
+  .tl-year {
+    font-family: var(--serif);
+    font-size: 11pt;
+    font-weight: 500;
+    color: #1B365D;
+    margin-bottom: 2pt;
+  }
+  .tl-head {
+    font-size: 10pt;
+    font-weight: 500;
+    color: #141413;
+    margin-bottom: 2pt;
+  }
+  .tl-body {
+    font-size: 9pt;
+    color: #504e49;
+    line-height: 1.4;
+  }
+
+  /* ========== Tag ========== */
+  .tag {
+    display: inline-block;
+    background: var(--tag-bg);    /* 实色！不要 rgba */
+    color: #1B365D;
+    font-size: 9pt;
+    font-weight: 500;
+    padding: 1pt 5pt;
+    border-radius: 3pt;
+    letter-spacing: 0.3pt;
+    margin-right: 3pt;
+  }
+
+  /* ========== Callout / 高亮块 ========== */
+  /* 和 long-doc / equity-report 的 .callout 同形：ivory 填充 + 单左侧 brand 竖条。
+     形态跨模板统一，只有 padding 按各自密度收紧。 */
+  .callout {
+    background: var(--ivory);
+    border-left: 2pt solid var(--brand);
+    border-radius: 3pt;
+    padding: 8pt 12pt;
+    margin: 10pt 0;
+    font-size: 10pt;
+    line-height: 1.5;
+    color: #504e49;
+    break-inside: avoid;
+  }
+  .callout .hl, .callout .em-brand { color: #1B365D; }
+
+  /* ========== TABLE (kami-table) ========== */
+  table, .kami-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9pt;
+    margin: 8pt 0;
+    break-inside: avoid;
+  }
+  table th, .kami-table th {
+    text-align: left;
+    font-weight: 500;
+    color: #3d3d3a;
+    padding: 4pt 6pt;
+    border-bottom: 1pt solid var(--border);
+    background: transparent;
+  }
+  table td, .kami-table td {
+    padding: 3pt 6pt;
+    border-bottom: 0.3pt solid var(--border-soft);
+    vertical-align: top;
+  }
+  table.compact th, .kami-table.compact th { padding: 2pt 5pt; font-size: 8pt; }
+  table.compact td, .kami-table.compact td { padding: 1pt 5pt; font-size: 8pt; line-height: 1.4; }
+  table.financial td:not(:first-child), .kami-table.financial td:not(:first-child) {
+    text-align: right; font-variant-numeric: tabular-nums;
+  }
+  table.financial th:not(:first-child), .kami-table.financial th:not(:first-child) { text-align: right; }
+  table.striped tbody tr:nth-child(even) td, .kami-table.striped tbody tr:nth-child(even) td {
+    background: var(--ivory);
+  }
+  table .total td, .kami-table .total td {
+    font-weight: 500; border-top: 1pt solid var(--brand); border-bottom: none; color: #141413;
+  }
+
+  /* ========== FOOTER ========== */
+  .footer {
+    margin-top: 18pt;
+    padding-top: 6pt;
+    border-top: 0.3pt dotted var(--border);
+    font-size: 9pt;
+    color: #6b6a64;
+    display: flex;
+    justify-content: space-between;
+    letter-spacing: 0.3pt;
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<div class="header">
+  <div class="title-block">
+    <div class="eyebrow">FDE CASE STUDY</div>
+    <h1>把知识问答做成可验收的业务交付</h1>
+    <div class="subtitle">美妆零售客服与导购助手｜需求、Demo、Eval 与人工边界</div>
+  </div>
+  <div class="meta">
+    RaoMM<br>
+    2026.08<br>
+    公开作品集
+  </div>
+  <!-- 品牌 logo 槽(可选,来自 brand profile 的 logo 字段)。无 logo 时保持注释,勿插破图。
+       有 logo 时取消注释,把 src 换成已展开的本地绝对路径:
+  <img class="brand-logo" src="/absolute/path/to/logo.svg" alt=""> -->
+</div>
+
+<!-- ========== METRICS（可选，3-4 卡最佳） ========== -->
+<div class="metrics">
+  <div class="metric">
+    <div class="metric-value">5</div>
+    <div class="metric-label">份知识资料</div>
+  </div>
+  <div class="metric">
+    <div class="metric-value">39</div>
+    <div class="metric-label">个检索片段</div>
+  </div>
+  <div class="metric">
+    <div class="metric-value">12</div>
+    <div class="metric-label">条 Eval 用例</div>
+  </div>
+  <div class="metric">
+    <div class="metric-value">10→12</div>
+    <div class="metric-label">首轮到复测通过数</div>
+  </div>
+</div>
+
+<!-- ========== LEAD（导语，一段） ========== -->
+<p class="lead">
+  我独立完成从需求澄清、范围与 SOW，到本地 Demo、Eval、失败修复和验收材料的完整闭环。核心不是让系统回答更多，而是让<span class="hl">有依据的问题可追溯</span>，让高风险、实时数据和资料不足的问题及时停止并交给人工。
+</p>
+
+<!-- ========== 核心内容（两栏） ========== -->
+<div class="two-col">
+  <section>
+    <h2>先定义“什么时候不能答”</h2>
+    <p>客服场景既要查得快，也要避免把不确定内容包装成对客结论。</p>
+    <ul class="dash">
+      <li>稳定知识：返回内部参考与来源位置。</li>
+      <li>库存、订单等实时数据：停止结论，提示人工核对。</li>
+      <li>不良反应、赔偿与资料不足：保留流程依据，不做医疗判断或责任承诺。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>失败用例驱动两次修复</h2>
+    <p>首轮通过 <span class="hl">10/12</span>。两个失败都能定位到具体检索机制。</p>
+    <ul class="dash">
+      <li>“渗漏”未召回“漏液”：补充同义词与客诉场景约束。</li>
+      <li>功效问答只返回可说内容：让正向依据与禁止边界共同召回。</li>
+      <li>修复后全量回归，<span class="hl">12/12</span> 通过技术检查与人工原文核对。</li>
+    </ul>
+  </section>
+</div>
+
+<!-- ========== Timeline / Roadmap（可选） ========== -->
+<section>
+  <h2>交付证据从业务问题贯穿到验收结果</h2>
+  <div class="timeline">
+    <div class="tl-step">
+      <div class="tl-year">01</div>
+      <div class="tl-head">需求与范围</div>
+      <div class="tl-body">角色、流程、SOW、验收红线</div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-year">02</div>
+      <div class="tl-head">知识与 Demo</div>
+      <div class="tl-body">39 个片段、来源展示、风险分流</div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-year">03</div>
+      <div class="tl-head">Eval 与回归</div>
+      <div class="tl-body">12 条用例、失败定位、修复复测</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CALLOUT（可选）========== -->
+<div class="callout">
+  <span class="hl">项目边界：</span>课堂脱敏数据与本地 Demo；未接真实客服渠道、订单库存、账号权限或生产环境。所有对客沟通仍由人工审核。
+</div>
+
+<!-- ========== FOOTER ========== -->
+<div class="footer">
+  <span>完整材料：github.com/RaoMM/fde-delivery-portfolio。</span>
+  <span>GitHub｜@RaoMM</span>
+</div>
+
+</body>
+</html>
